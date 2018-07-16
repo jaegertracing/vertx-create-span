@@ -1,0 +1,23 @@
+= Vert.x starter with Jaeger tracer
+
+This is a Vert.x starter project (from http://start.vertx.io/), with
+just enough code to include Jaeger tracer and report a span.
+
+== Run
+
+Each in a different terminal:
+```
+$ docker run \
+  --rm \
+  --name jaeger \
+  -p 6831:6831/udp \
+  -p 16686:16686 \
+  jaegertracing/all-in-one:1.6 \
+  --log-level debug
+$ JAEGER_REPORTER_LOG_SPANS=true JAEGER_SAMPLER_TYPE=const JAEGER_SAMPLER_PARAM=1 ./gradlew run
+$ curl localhost:8080
+```
+
+Expected outcome: 
+
+image::trace.png[]

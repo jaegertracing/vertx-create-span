@@ -1,0 +1,47 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
+ext {
+  vertxVersion = '3.5.0'
+  jaegerClientVersion = '0.30.3-SNAPSHOT'
+}
+
+repositories {
+  mavenLocal()
+  jcenter()
+  maven { url "https://plugins.gradle.org/m2/" }
+}
+
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+dependencies {
+  compile "io.vertx:vertx-unit:$vertxVersion"
+  compile "io.vertx:vertx-core:$vertxVersion"
+  compile "io.vertx:vertx-web:$vertxVersion"
+
+  compile("org.slf4j:slf4j-api:1.7.25")
+  compile("org.slf4j:slf4j-log4j12:1.7.25")
+
+  compile "io.jaegertracing:jaeger-client:$jaegerClientVersion"
+}
+
+mainClassName = 'com.example.demo.MainVerticle'
+
+shadowJar {
+  classifier = 'fat'
+  mergeServiceFiles {
+    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+  }
+}
+
+run {
+  args = ['run', mainClassName, "--launcher-class=io.vertx.core.Launcher"]
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.0'
+}
