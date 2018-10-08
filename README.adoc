@@ -12,7 +12,7 @@ $ docker run \
   --name jaeger \
   -p 6831:6831/udp \
   -p 16686:16686 \
-  jaegertracing/all-in-one:1.6 \
+  jaegertracing/all-in-one:1.7 \
   --log-level debug
 $ JAEGER_REPORTER_LOG_SPANS=true JAEGER_SAMPLER_TYPE=const JAEGER_SAMPLER_PARAM=1 ./gradlew run
 $ curl localhost:8080
@@ -21,3 +21,22 @@ $ curl localhost:8080
 Expected outcome: 
 
 image::trace.png[]
+
+== Docker image
+
+```
+docker build . -t ${USER}/vertx-create-span
+```
+
+== Run via Docker
+
+```
+docker run --rm ${USER}/vertx-create-span
+```
+
+== Install on Kubernetes
+
+```
+kubectl apply -f deployment.yaml
+```
+
