@@ -25,6 +25,8 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
+        logger.info("Agent at: " + System.getenv("JAEGER_AGENT_HOST"));
+
         System.setProperty("JAEGER_REPORTER_LOG_SPANS", "true");
         System.setProperty("JAEGER_SAMPLER_TYPE", "const");
         System.setProperty("JAEGER_SAMPLER_PARAM", "1");
