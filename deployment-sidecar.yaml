@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertx-create-span
+  annotations:
+    inject-jaeger-agent: "true"
+spec:
+  selector:
+    matchLabels:
+      app: vertx-create-span
+  template:
+    metadata:
+      labels:
+        app: vertx-create-span
+    spec:
+      containers:
+      - name: vertx-create-span
+        image: jpkroehling/vertx-create-span:latest
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
