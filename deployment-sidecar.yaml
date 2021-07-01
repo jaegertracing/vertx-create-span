@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vertx-create-span
   annotations:
-    inject-jaeger-agent: "true"
+    sidecar.jaegertracing.io/inject: "true"
 spec:
   selector:
     matchLabels:
