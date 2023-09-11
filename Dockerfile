@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM eclipse-temurin:18-jdk-focal as builder
+FROM --platform=$BUILDPLATFORM eclipse-temurin:17-jdk-focal as builder
 
 WORKDIR /app
 COPY gradle/ gradle/
