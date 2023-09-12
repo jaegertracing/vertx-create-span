@@ -1,12 +1,12 @@
 plugins {
   id 'java'
   id 'application'
-  id 'com.github.johnrengelman.shadow' version '2.0.1'
+  id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 ext {
-  vertxVersion = '3.5.0'
-  jaegerClientVersion = '0.30.6'
+  vertxVersion = '4.4.5'
+  jaegerClientVersion = '0.35.5'
 }
 
 repositories {
@@ -19,21 +19,21 @@ version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 dependencies {
-  compile "io.vertx:vertx-unit:$vertxVersion"
-  compile "io.vertx:vertx-core:$vertxVersion"
-  compile "io.vertx:vertx-web:$vertxVersion"
+  implementation "io.vertx:vertx-unit:$vertxVersion"
+  implementation "io.vertx:vertx-core:$vertxVersion"
+  implementation "io.vertx:vertx-web:$vertxVersion"
 
-  compile("org.slf4j:slf4j-api:1.7.25")
-  compile("org.slf4j:slf4j-log4j12:1.7.25")
+  implementation("org.slf4j:slf4j-api:2.0.9")
+  implementation("org.slf4j:slf4j-log4j12:2.0.9")
 
-  compile "io.jaegertracing:jaeger-core:$jaegerClientVersion"
-  compile "io.jaegertracing:jaeger-thrift:$jaegerClientVersion"
+  implementation "io.jaegertracing:jaeger-core:$jaegerClientVersion"
+  implementation "io.jaegertracing:jaeger-thrift:$jaegerClientVersion"
 }
 
 mainClassName = 'com.example.demo.MainVerticle'
 
 shadowJar {
-  classifier = 'fat'
+  archiveClassifier = 'fat'
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
   }
@@ -43,6 +43,3 @@ run {
   args = ['run', mainClassName, "--launcher-class=io.vertx.core.Launcher"]
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '4.0'
-}
